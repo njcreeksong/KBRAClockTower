@@ -2,7 +2,7 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <canvas id="myCanvas" width="578" height="500"></canvas>
+  <canvas id="myCanvas" width="578" height="400"></canvas>
 </div>
 <h2 style="text-align:center">
   Total Chimes:  {{ model.totalChimes }}
@@ -11,7 +11,7 @@
     <form (ngSubmit)="onSubmit()" #timeForm="ngForm">
       <div class="form-group">
         <label for="start_time">Start Time:</label>
-        <input type="text" class="form-control" id="start_time" placeholder="__:__" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" required [(ngModel)]="model.start_time" name="start_time" #start_time="ngModel">
+        <input type="text" class="form-control" id="start_time" placeholder="__:__" pattern="([01]?[0-9]|2[0-4]):[0-5][0-9]" required [(ngModel)]="model.start_time" name="start_time" #start_time="ngModel">
       </div>
       <div [hidden]="start_time.pristine || start_time.valid"
            class="alert alert-danger">
@@ -20,7 +20,7 @@
 
       <div class="form-group">
         <label for="end_time">End Time:</label>
-        <input type="text" class="form-control" id="end_time" placeholder="__:__" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" required [(ngModel)]="model.end_time" name="end_time" #end_time="ngModel">
+        <input type="text" class="form-control" id="end_time" placeholder="__:__" pattern="([01]?[0-9]|2[0-4]):[0-5][0-9]" required [(ngModel)]="model.end_time" name="end_time" #end_time="ngModel">
       </div>
       <div [hidden]="end_time.pristine || end_time.valid"
            class="alert alert-danger">

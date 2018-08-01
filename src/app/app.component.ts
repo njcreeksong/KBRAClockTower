@@ -66,31 +66,44 @@ export class AppComponent implements OnInit {
     context.fillText("IX", centerX - radiusForPositioningNumerals - 40, centerY);
     context.fillText("X", centerX - radiusForPositioningNumerals - 10, centerY - (oneTwelfth));
     context.fillText("XI", centerX - radiusForPositioningNumerals + 40, centerY - ((oneTwelfth * 2)));
-    context.fillText("XII", x - 20, y-10);
+    context.fillText("XII", x - 20, y - 10);
 
   }
 
   onSubmit() {
-    let startHour = this.model.start_time.split(":", 2);
-    let endHour = this.model.end_time.split(":", 2);
-    this.model.totalChimes = this.calculateChimes(true,startHour) + this.calculateChimes(false,endHour);
-
+    let startTime = this.model.start_time.split(":", 2);
+    let endTime = this.model.end_time.split(":", 2);
+    this.model.totalChimes = this.calculateTotalChimes(startTime, endTime);
   }
 
-  calculateChimes(isStartTime: boolean, theTime: string[]): number {
-    let hour = Number(theTime[0]);
-    let minute = Number(theTime[1]);
+  calculateTotalChimes(startTime: string[], endTime: string[]): number {
+    let startHour = Number(startTime[0]);
+    let startMinute = Number(startTime[1]);
 
-    if (isStartTime && minute > 0) {
-      return 0;
+    if (startMinute > 0) {
+      startHour++;
     }
 
-    if (hour === 0 || hour === 12) {
-      return 12;
+    let endHour = Number(endTime[0]);
+    let endMinute = Number(endTime[1]);
+
+    console.log(startHour);
+    console.log(startMinute);
+
+    console.log(endHour);
+    console.log(endMinute);
+
+    let totalChimes = 0;
+
+    let f = (x, y) => ~-x % 12 - ~(x - y && f(x % 24 + 1, y));
+
+    if (startHour == endHour) {
+      totalChimes = (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) * 2;
     }
     else {
-      return (hour % 12);
+      totalChimes = f(startHour, endHour);
     }
-  }
 
+    return totalChimes;
+  }
 }
